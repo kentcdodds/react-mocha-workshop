@@ -1,6 +1,12 @@
 {
-  "extends": "kentcdodds/react",
-  "rules": {
-    "no-unused-vars": [2, {"vars": "all", "args": "none", "varsIgnorePattern": "^React$"}],
-  },
+  "extends": [
+    "kentcdodds/best-practices",
+    "kentcdodds/possible-errors",
+    "kentcdodds/es6/best-practices",
+    "kentcdodds/es6/possible-errors",
+    "kentcdodds/import/best-practices",
+    "kentcdodds/import/possible-errors",
+    "kentcdodds/mocha",
+    "kentcdodds/react",
+  ],
 }

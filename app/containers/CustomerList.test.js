@@ -1,57 +1,67 @@
-import test from 'ava'
-import sinon from 'sinon'
-
 import React from 'react'
-import {renderToStaticMarkup} from 'react-dom/server'
-import {render, unmountComponentAtNode} from 'react-dom'
+import {spy} from 'sinon'
+import {render as domRender, unmountComponentAtNode} from 'react-dom'
+import {render, mount} from 'enzyme'
 
 import CustomerList from './CustomerList'
 
-test('Renders no customers and add button', t => {
-  const output = renderStatic()
-  t.true(output.includes('no customers'))
-  t.false(output.includes('list of customers'))
-})
+describe('CustomerList', () => {
+  it('should render no customers and add button', () => {
+    const wrapper = render(<CustomerListWithDefaults />)
+    expect(wrapper).to.include.text('no customers')
+    expect(wrapper).to.not.include.text('list of customers')
+  })
 
-test('Renders customers and add button', t => {
-  const store = {
-    getCustomers: sinon.spy(() => [{name: 'Bob'}, {name: 'Joanna'}]),
-  }
-  const output = renderStatic({store})
-  t.true(output.includes('list of customers'))
-  t.true(output.includes('Bob'))
-  t.true(output.includes('Joanna'))
-  t.false(output.includes('no customers'))
-})
+  it('should render customers and add button', () => {
+    const {store} = getStoreStub([{name: 'Bob'}, {name: 'Joanna'}])
+    const wrapper = render(<CustomerListWithDefaults store={store} />)
+    expect(wrapper).to.include.text('list of customers')
+    expect(wrapper).to.include.text('Bob')
+    expect(wrapper).to.include.text('Joanna')
+    expect(wrapper).to.not.include.text('no customers')
+  })
 
-test('Responds to store updates', t => {
-  const {ref, store} = getStoreStub()
-  const div = renderToDiv({store})
-  ref.customers = [{name: 'Jill'}, {name: 'Fred'}]
-  ref.callback()
-  const {innerHTML} = div
-  t.true(innerHTML.includes('list of customers'))
-  t.true(innerHTML.includes('Jill'))
-  t.true(innerHTML.includes('Fred'))
-  t.false(innerHTML.includes('no customers'))
-})
+  it('should respond to store updates', () => {
+    const {store} = getStoreStub([{name: 'Jill'}, {name: 'Fred'}])
+    const wrapper = mount(<CustomerListWithDefaults store={store} />)
 
-test('unsubscribes when unmounted', t => {
-  const {ref, store} = getStoreStub()
-  const div = renderToDiv({store})
-  unmountComponentAtNode(div)
-  t.true(ref.unsubscribe.calledOnce)
+    expect(wrapper).to.include.text('list of customers')
+    expect(wrapper).to.include.text('Jill')
+    expect(wrapper).to.include.text('Fred')
+    expect(wrapper).to.not.include.text('no customers')
+  })
+
+  it('should unsubscribe when unmounted', () => {
+    const {ref, store} = getStoreStub()
+    const div = renderToDiv({store})
+    unmountComponentAtNode(div)
+    expect(ref.unsubscribe).to.have.been.calledOnce
+  })
+
+  // if you can get this one to work, that's awesome. I'm getting the following error message:
+  // Invariant Violation: dangerouslyReplaceNodeWithMarkup(...): Cannot render markup in a worker thread. Make sure
+  // `window` and `document` are available globally before requiring React when unit testing or use
+  // ReactDOMServer.renderToString() for server rendering.
+  it.skip('should unsubscribe when unmounted with enzyme', () => {
+    expect(window).to.be.defined
+    expect(document).to.be.defined
+    const {ref, store} = getStoreStub()
+    const wrapper = mount(<CustomerListWithDefaults store={store} />)
+    wrapper.unmount()
+    expect(ref.unsubscribe).to.have.been.calledOnce
+  })
 })
 
 
 /**
  * Create a stub for the store which can be used for assertions
+ * @param {Array} customers - the array of customers
  * @returns {Object} - ref property has customers and will haf ref.callback when
  *   store.callback is invoked. store.getCustomers will return ref.customers
  */
-function getStoreStub() {
-  const unsubscribe = sinon.spy()
-  const ref = {customers: [], unsubscribe}
+function getStoreStub(customers = []) {
+  const unsubscribe = spy()
+  const ref = {customers, unsubscribe}
   const store = {
     getCustomers: () => ref.customers,
     subscribe: cb => {
@@ -62,19 +72,6 @@ function getStoreStub() {
   return {ref, store}
 }
 
-
-/**
- * Render the <CustomerList /> component to a string with the given props
- * @param {Object} props - the props to apply to the <CustomerList /> element
- * @returns {Object} - the rendered string, store, and actions stubs
- */
-function renderStatic(props) {
-  const output = renderToStaticMarkup(
-    <CustomerListWithDefaults {...props} />
-  )
-  return output
-}
-
 /**
  * Render the <CustomerList /> component to a div with the given props
  * @param {Object} props - the props to apply to the <CustomerList /> element
@@ -82,7 +79,7 @@ function renderStatic(props) {
  */
 function renderToDiv(props) {
   const div = document.createElement('div')
-  render(
+  domRender(
     <CustomerListWithDefaults {...props} />,
     div,
   )
@@ -96,11 +93,6 @@ function CustomerListWithDefaults(props) {
   const actions = {
     addCustomer() {},
   }
-  return (
-    <CustomerList
-      store={store}
-      actions={actions}
-      {...props}
-    />
-  )
+  const propsToApply = {store, actions, ...props}
+  return <CustomerList {...propsToApply} />
 }

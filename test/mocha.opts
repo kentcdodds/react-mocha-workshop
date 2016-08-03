@@ -1,0 +1,2 @@
+--require test/helpers/setup-test-env.js
+app/**/*.test.js

@@ -1,16 +1,17 @@
-# [React](https://facebook.github.io/react/) + [AVA](https://npmjs.org/package/ava) = ❤️
+# [React][React] + [Mocha][Mocha] + [Enzyme][Enzyme] = :heart:
 
+[<img alt="slides" src="https://cdn.rawgit.com/kentcdodds/custom-badges/1/badges/slides.png" height="20" />][slides]
 [![PRs Welcome][prs-badge]][prs]
 [![Donate][donate-badge]][donate]
 
-Find slides [here](http://kcd.im/react-ava)
+Find slides [here](http://kcd.im/react-mocha)
 
-This is a workshop for learning how to use the [ava](https://npmjs.org/package/ava)
-testing framework with [React](https://npmjs.org/package/react).
+This is a workshop for learning how to test [React][React] with the [Mocha][Mocha] testing framework and the
+[Enzyme][Enzyme] testing library. It also uses [Chai][Chai] for helpful assertions
 
 The `master` branch (what you're looking at now) is the finished version.
 If you'd like to follow along the [INSTRUCTIONS.md](INSTRUCTIONS.md),
-then checkout the branch called [`start`](https://github.com/kentcdodds/react-ava-workshop/tree/start).
+then checkout the branch called [`start`](https://github.com/kentcdodds/react-mocha-workshop/tree/start).
 
 Good luck!
 
@@ -18,7 +19,12 @@ Good luck!
 
 MIT
 
+[React]: https://facebook.github.io/react/
+[Mocha]: https://mochajs.org/
+[Enzyme]: http://airbnb.io/enzyme/
+[Chai]: http://chaijs.com/
+[slides]: http://kcd.im/react-mocha-enzyme
+[donate]: http://kcd.im/donate
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
 [donate-badge]: https://img.shields.io/badge/$-support-green.svg?style=flat-square
-[donate]: http://kcd.im/donate

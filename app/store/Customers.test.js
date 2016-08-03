@@ -1,32 +1,35 @@
-import test from 'ava'
-import sinon from 'sinon'
+import {spy} from 'sinon'
 import store from './Customers'
 
-test('customers should start with empty', t => {
-  const customers = store.getCustomers()
-  t.true(customers.length === 0)
-})
+describe('customers', () => {
 
-test('setting customers and getting them', t => {
-  const c0 = {name: 'Bill'}
-  const c1 = {name: 'Francine'}
-  store.setCustomers([c0, c1])
-  const customers = store.getCustomers()
-  const [sc0, sc1] = customers
-  t.true(customers.length === 2)
-  t.same(c0, sc0)
-  t.same(c1, sc1)
-})
+  afterEach(() => store.setCustomers([])) // eslint-disable-line mocha/no-hooks
 
-test('subscribing to the store', t => {
-  const spy = sinon.spy()
-  const unsubscribe = store.subscribe(spy)
-  store.setCustomers([])
-  t.true(spy.calledOnce)
-  spy.reset()
-  unsubscribe()
-  store.setCustomers([])
-  t.false(spy.called)
-})
+  it('should start with empty', () => {
+    const customers = store.getCustomers()
+    expect(customers).to.have.length(0)
+  })
 
-test.afterEach(() => store.setCustomers([]))
+  it('should allow you to set customers and get them', () => {
+    const c0 = {name: 'Bill'}
+    const c1 = {name: 'Francine'}
+    store.setCustomers([c0, c1])
+    const customers = store.getCustomers()
+    const [sc0, sc1] = customers
+    expect(customers).to.have.length(2)
+    expect(c0).to.equal(sc0)
+    expect(c1).to.equal(sc1)
+  })
+
+  it('should allow you to subscribe to the store', () => {
+    const subscriber = spy()
+    const unsubscribe = store.subscribe(subscriber)
+    store.setCustomers([])
+    expect(subscriber).to.have.been.calledOnce
+    subscriber.reset()
+    unsubscribe()
+    store.setCustomers([])
+    expect(subscriber).to.not.have.been.called
+  })
+
+})

@@ -2,8 +2,8 @@
 
 If you'd like to follow along:
 
-1. `$ git clone https://github.com/kentcdodds/react-ava-workshop.git`
-2. `$ cd react-ava-workshop`
+1. `$ git clone https://github.com/kentcdodds/react-mocha-workshop.git`
+2. `$ cd react-mocha-workshop`
 3. `$ git checkout start`
 4. `$ npm install`
 
@@ -12,17 +12,20 @@ It's a bit contrived and doesn't actually amount to anything but a couple
 disconnected components and a fairly worthless (non-flux) store.
 
 You'll also notice that right next to each module, there's a `.test.js` file where
-there's a single test that utilizes a module called `ava`.
+there's a single test that just verifies that your tests are running.
 
 We already have many of the same dependencies you would have in a normal react
 project including `babel-core` and friends, `react` (and friends), and
 `eslint`... and friends. However, to get our tests going, we're going to need
-a few more dependencies:
+a few more dependencies. Oh, and one more thing, let me introduce you to your new
+best friend:
 
 🐯 *- Hi! I'm Terry the Tiger! These instructions are really long and boring! So*
 *I'll pop up here and there where you'll be expected to actually do something!*
 *And if you really want to skip around, just copy me and <kbd>⌘</kbd>+<kbd>f</kbd>*
 *(or <kbd>CTRL</kbd>+<kbd>f</kbd> on windows) for me on the page. See you around!*
+
+# Starting here, things are old. I'm migrating this from AVA
 
 ## AVA
 

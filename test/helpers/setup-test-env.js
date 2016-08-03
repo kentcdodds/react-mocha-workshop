@@ -1,11 +1,19 @@
 /**
  * This is used to set up the environment that's needed for most
- * of the unit tests for the project which includes babel transpilation
- * with babel-register, polyfilling, and initializing the DOM with jsdom
+ * of the unit tests for the project which includes polyfilling,
+ * chai setup, and initializing the DOM with jsdom
  */
-require('babel-register')
-require('babel-polyfill')
+import 'babel-polyfill'
+import chai from 'chai'
+import chaiEnzyme from 'chai-enzyme'
+import sinonChai from 'sinon-chai'
+// import {jsdom} from 'jsdom'
+const jsdom = require('jsdom')
 
-global.document = require('jsdom').jsdom('<body></body>')
+chai.use(chaiEnzyme())
+chai.use(sinonChai)
+
+global.document = jsdom.jsdom('<body></body>')
 global.window = document.defaultView
 global.navigator = window.navigator
+global.expect = chai.expect
