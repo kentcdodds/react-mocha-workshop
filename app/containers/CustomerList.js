@@ -1,7 +1,12 @@
-import React, {PropTypes} from 'react'
+/**
+ * KENT: DON'T FORGET TO UPDATE THIS TO NOT
+ * USE PROPS.STORE EVERYWHERE BEFORE YOUR
+ * MIDWESTJS TALK :)
+ */
+import React, {PropTypes, Component} from 'react'
 import store from '../store/Customers'
 
-class CustomerList extends React.Component {
+class CustomerList extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -30,15 +35,13 @@ class CustomerList extends React.Component {
   }
 }
 
-CustomerList.defaultProps = {
-  store,
-}
+CustomerList.defaultProps = {store}
 
 CustomerList.propTypes = {
   store: PropTypes.shape({
     getCustomers: PropTypes.func,
     subscribe: PropTypes.func,
-  }).isRequired,
+  }),
 }
 
 function ListOfCustomers({customers}) {

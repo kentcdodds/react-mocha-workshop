@@ -5,7 +5,7 @@ import getStoreStub from '../store/Customers.stub-final'
 import CustomerList from './CustomerList'
 
 describe('CustomerList', () => {
-  it('should render no customers and add button', () => {
+  it('should render no customers', () => {
     const wrapper = renderCustomerList()
     expect(wrapper).to.include.text('no customers')
     expect(wrapper).to.not.include.text('list of customers')
@@ -21,22 +21,20 @@ describe('CustomerList', () => {
   })
 
   it('should respond to store updates', () => {
-    const {store, ref} = getStoreStub()
+    const {store, updateCustomers} = getStoreStub()
     const wrapper = mountCustomerList({store})
-    ref.updateCustomers([{name: 'Jill'}, {name: 'Fred'}])
+    updateCustomers([{name: 'Jill'}, {name: 'Fred'}])
     expect(wrapper).to.include.text('list of customers')
     expect(wrapper).to.include.text('Jill')
     expect(wrapper).to.include.text('Fred')
     expect(wrapper).to.not.include.text('no customers')
   })
 
-  it('should unsubscribe when unmounted with enzyme', () => {
-    expect(window).to.be.defined
-    expect(document).to.be.defined
-    const {ref, store} = getStoreStub()
+  it('should unsubscribe when unmounted', () => {
+    const {unsubscribe, store} = getStoreStub()
     const wrapper = mountCustomerList({store})
     wrapper.unmount()
-    expect(ref.unsubscribe).to.have.been.calledOnce
+    expect(unsubscribe).to.have.been.calledOnce
   })
 })
 
@@ -49,6 +47,11 @@ function mountCustomerList(props = {}) {
   return mount(<CustomerList {...getPropsWithDefaults(props)} />)
 }
 
+/**
+ * Render the <CustomerList /> component with enzyme and return the wrapper
+ * @param  {Object} props={} - the props to apply to the <CustomerList /> component
+ * @return {Wrapper} - the enzyme wrapper
+ */
 function renderCustomerList(props = {}) {
   return render(<CustomerList {...getPropsWithDefaults(props)} />)
 }
@@ -60,6 +63,5 @@ function renderCustomerList(props = {}) {
  */
 function getPropsWithDefaults(props = {}) {
   const {store} = getStoreStub()
-  const actions = {addCustomer() {}}
-  return {store, actions, ...props}
+  return {store, ...props}
 }

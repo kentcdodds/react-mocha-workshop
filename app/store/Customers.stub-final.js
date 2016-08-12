@@ -9,16 +9,16 @@ export default getStoreStub
  */
 function getStoreStub(customers = []) {
   const unsubscribe = spy()
-  const ref = {customers, unsubscribe, updateCustomers}
+  const ref = {customers}
 
   const store = {
     getCustomers: () => ref.customers,
     subscribe: cb => {
       ref.callback = cb
-      return ref.unsubscribe
+      return unsubscribe
     },
   }
-  return {ref, store}
+  return {ref, unsubscribe, store, updateCustomers}
 
   function updateCustomers(newCustomers) {
     ref.customers = newCustomers
