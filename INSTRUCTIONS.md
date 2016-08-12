@@ -26,6 +26,7 @@ best friend:
 *(or <kbd>CTRL</kbd>+<kbd>f</kbd> on windows) for me on the page. See you around!*
 
 # Starting here, things are old. I'm migrating this from AVA
+# If you wanna help, that'd be great
 
 ## AVA
 
