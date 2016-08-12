@@ -8,20 +8,21 @@ export default getStoreStub
  *   store.callback is invoked. store.getCustomers will return ref.customers
  */
 function getStoreStub(customers = []) {
+  let callback
   const unsubscribe = spy()
   const ref = {customers}
 
   const store = {
     getCustomers: () => ref.customers,
     subscribe: cb => {
-      ref.callback = cb
+      callback = cb
       return unsubscribe
     },
   }
-  return {ref, unsubscribe, store, updateCustomers}
+  return {unsubscribe, store, updateCustomers}
 
   function updateCustomers(newCustomers) {
     ref.customers = newCustomers
-    ref.callback()
+    callback()
   }
 }

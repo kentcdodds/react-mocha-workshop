@@ -11,7 +11,7 @@ describe('CustomerList', () => {
     expect(wrapper).to.not.include.text('list of customers')
   })
 
-  it('should render customers and add button', () => {
+  it('should render customers', () => {
     const {store} = getStoreStub([{name: 'Bob'}, {name: 'Joanna'}])
     const wrapper = renderCustomerList({store})
     expect(wrapper).to.include.text('list of customers')
@@ -44,7 +44,7 @@ describe('CustomerList', () => {
  * @return {Wrapper} - the enzyme wrapper
  */
 function mountCustomerList(props = {}) {
-  return mount(<CustomerList {...getPropsWithDefaults(props)} />)
+  return mount(<CustomerList {...getProps(props)} />)
 }
 
 /**
@@ -53,7 +53,7 @@ function mountCustomerList(props = {}) {
  * @return {Wrapper} - the enzyme wrapper
  */
 function renderCustomerList(props = {}) {
-  return render(<CustomerList {...getPropsWithDefaults(props)} />)
+  return render(<CustomerList {...getProps(props)} />)
 }
 
 /**
@@ -61,7 +61,7 @@ function renderCustomerList(props = {}) {
  * @param  {Object} props={} the props to apply to the <CustomerList /> component
  * @return {Object} store, actions, and the props you've passed (overwriting the store and actions)
  */
-function getPropsWithDefaults(props = {}) {
+function getProps(props = {}) {
   const {store} = getStoreStub()
   return {store, ...props}
 }
