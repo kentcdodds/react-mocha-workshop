@@ -1,6 +1,6 @@
 # [React][React] + [Mocha][Mocha] + [Enzyme][Enzyme] = :heart:
 
-[<img alt="slides" src="https://cdn.rawgit.com/kentcdodds/custom-badges/1/badges/slides.png" height="20" />][slides]
+[![slides-badge][slides-badge]][slides]
 [![PRs Welcome][prs-badge]][prs]
 [![Donate][donate-badge]][donate]
 
@@ -23,7 +23,8 @@ MIT
 [Mocha]: https://mochajs.org/
 [Enzyme]: http://airbnb.io/enzyme/
 [Chai]: http://chaijs.com/
-[slides]: http://kcd.im/react-mocha-enzyme
+[slides]: http://kcd.im/testing-react
+[slides-badge]: https://cdn.rawgit.com/kentcdodds/custom-badges/2/badges/slides.svg
 [donate]: http://kcd.im/donate
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
