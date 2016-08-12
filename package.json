@@ -7,8 +7,10 @@
   "scripts": {
     "lint": "eslint .",
     "test": "cross-env NODE_ENV=test nyc mocha app/**/*.test.js",
-    "test:final": "cross-env NODE_ENV=test nyc mocha app/**/*.test-final.js",
-    "watch:test": "mocha --watch --compilers js:babel-register app/**/*.test.js"
+    "test:final": "cross-env NODE_ENV=test nyc mocha app-final/**/*.test.js",
+    "watch:test": "mocha --watch --compilers js:babel-register app/**/*.test.js",
+    "validate": "npm run lint && npm run test:final",
+    "setup": "npm install && npm run validate"
   },
   "repository": {
     "type": "git",
@@ -57,16 +59,14 @@
       "lcov"
     ],
     "include": [
-      "app"
+      "app",
+      "app-final"
     ],
     "exclude": [
       "**/node_modules/**",
-      "**/*.test.*",
-      "**/*.test-final.*",
-      "**/*.stub.*",
-      "**/*.stub-final.*",
-      "**/helpers/**",
-      "**/test/**"
+      "**/test/**",
+      "**/*.stub.js",
+      "**/*.test.js"
     ],
     "sourceMap": false,
     "instrument": false,

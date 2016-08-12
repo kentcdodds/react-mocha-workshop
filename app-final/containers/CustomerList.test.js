@@ -1,6 +1,6 @@
 import React from 'react'
 import {render, mount} from 'enzyme'
-import getStoreStub from '../store/Customers.stub-final'
+import getStoreStub from '../store/Customers.stub'
 
 import CustomerList from './CustomerList'
 

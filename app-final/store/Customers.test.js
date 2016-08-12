@@ -1,7 +1,7 @@
 import {spy} from 'sinon'
 import store from './Customers'
 
-describe('customers', () => {
+describe('Customers', () => {
 
   afterEach(() => store.setCustomers([]))
 

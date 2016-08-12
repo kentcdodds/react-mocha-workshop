@@ -1,6 +1,3 @@
 node_modules/
 coverage/
 .nyc_output/
-# ignore the test and stub files so they don't get committed by accident
-*.test.js
-*.stub.js

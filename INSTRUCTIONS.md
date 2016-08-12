@@ -4,8 +4,7 @@ If you'd like to follow along:
 
 1. `$ git clone https://github.com/kentcdodds/react-mocha-workshop.git`
 2. `$ cd react-mocha-workshop`
-3. `$ git checkout start`
-4. `$ npm install`
+4. `$ npm run setup`
 
 You'll notice that this repository is already (mostly) set up for a React project.
 It's a bit contrived and doesn't actually amount to anything but a couple
