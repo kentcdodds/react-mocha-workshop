@@ -9,14 +9,17 @@ class CustomerList extends React.Component {
     }
   }
   componentDidMount() {
-    this.unsubscribe = this.props.store.subscribe(() => this.updateStateWithCustomers())
+    this.unsubscribe = this.props.store.subscribe(this.updateStateWithCustomers)
   }
   componentWillUnmount() {
     this.unsubscribe()
   }
-  updateStateWithCustomers() {
-    this.setState({customers: this.props.store.getCustomers()})
-  }
+
+  updateStateWithCustomers = () => {
+    const customers = this.props.store.getCustomers()
+    this.setState({customers})
+  };
+
   render() {
     const {customers} = this.state
     if (customers.length === 0) {
@@ -43,7 +46,7 @@ function ListOfCustomers({customers}) {
     <div>
       Here is your list of customers!
       <ul>
-        {customers.map((c, i) => <Customer key={i} {...c} />)}
+        {customers.map((c, i) => <li key={i}>{c.name}</li>)}
       </ul>
     </div>
   )
@@ -59,14 +62,6 @@ function NoCustomers() {
       You have no customers. Better get to work!
     </div>
   )
-}
-
-function Customer({name}) {
-  return <li key={name}>{name}</li>
-}
-
-Customer.propTypes = {
-  name: PropTypes.string,
 }
 
 export default CustomerList

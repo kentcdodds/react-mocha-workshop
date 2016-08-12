@@ -9,4 +9,7 @@
     "kentcdodds/mocha",
     "kentcdodds/react",
   ],
+  "rules": {
+    "no-invalid-this": 0,
+  }
 }

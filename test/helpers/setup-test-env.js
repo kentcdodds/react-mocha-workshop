@@ -5,15 +5,20 @@
  */
 import 'babel-polyfill'
 import chai from 'chai'
-import chaiEnzyme from 'chai-enzyme'
 import sinonChai from 'sinon-chai'
-// import {jsdom} from 'jsdom'
-const jsdom = require('jsdom')
+import {jsdom} from 'jsdom'
 
-chai.use(chaiEnzyme())
 chai.use(sinonChai)
 
-global.document = jsdom.jsdom('<body></body>')
+global.document = jsdom('<body></body>')
 global.window = document.defaultView
 global.navigator = window.navigator
 global.expect = chai.expect
+
+// this has to happen after the globals are set up because `chai-enzyme`
+// will require `enzyme`, which requires `react`, which ultimately
+// requires `fbjs/lib/ExecutionEnvironment` which (at require time) will
+// attempt to determine the current environment (this is where it checks
+// for whether the globals are present). Hence, the globals need to be
+// initialized before requiring `chai-enzyme`.
+chai.use(require('chai-enzyme')())
