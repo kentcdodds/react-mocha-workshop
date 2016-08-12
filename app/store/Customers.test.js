@@ -3,7 +3,7 @@ import store from './Customers'
 
 describe('customers', () => {
 
-  afterEach(() => store.setCustomers([])) // eslint-disable-line mocha/no-hooks
+  afterEach(() => store.setCustomers([]))
 
   it('should start with empty', () => {
     const customers = store.getCustomers()
