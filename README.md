@@ -4,7 +4,7 @@
 [![PRs Welcome][prs-badge]][prs]
 [![Donate][donate-badge]][donate]
 
-Find slides [here](http://kcd.im/react-mocha)
+Find slides [here](https://kcd.im/testing-react)
 
 This is a workshop for learning how to test [React][React] with the [Mocha][Mocha] testing framework and the
 [Enzyme][Enzyme] testing library. It also uses [Chai][Chai] for helpful assertions
